@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <PhotoListItem sampleData={sampleDataForPhotoListItem}/>
+      <PhotoListItem photoListData={sampleDataForPhotoListItem}/>
     </div>
   );
 };
