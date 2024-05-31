@@ -1,8 +1,11 @@
 import React from 'react';
 
-import PhotoListItem from './components/PhotoListItem';
-import PhotoList from './components/PhotoList';
 import './App.scss';
+// import PhotoListItem from './components/PhotoListItem';
+// import TopicListItem from 'components/TopicListItem';
+import PhotoList from './components/PhotoList';
+import TopicList from 'components/TopicList';
+
 
 // const sampleDataForPhotoListItem = {
 //   id: "1",
@@ -30,7 +33,8 @@ const App = () => {
     <div className="App">
       <div className="photo-list">
       {/* {photoItems} */}
-      <PhotoList/>
+      {/* <PhotoList/> */}
+      <TopicList/>
       </div>
     </div>
   );
