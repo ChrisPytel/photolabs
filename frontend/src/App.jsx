@@ -5,6 +5,7 @@ import './App.scss';
 // import TopicListItem from 'components/TopicListItem';
 import PhotoList from './components/PhotoList';
 import TopicList from 'components/TopicList';
+import TopNavigation from 'components/TopNavigationBar';
 
 
 // const sampleDataForPhotoListItem = {
@@ -34,7 +35,8 @@ const App = () => {
       <div className="photo-list">
       {/* {photoItems} */}
       {/* <PhotoList/> */}
-      <TopicList/>
+      {/* <TopicList/> */}
+      <TopNavigation/>      
       </div>
     </div>
   );
