@@ -5,13 +5,14 @@ import "../styles/PhotoList.scss";
 
 const PhotoList = ({photos, globalFavourites, toggleFavourite}) => {
     
-  const photoItems = photos.map((photoItem, index) =>
-    <li key={index}>
+  //Refactored Map away from using index and now uses photoItem.ID as its key identifier
+  const photoItems = photos.map((photoItem) =>
+    <li key={photoItem.id}>
       <PhotoListItem 
         photoListData={photoItem}
         globalFavourites={globalFavourites}
         toggleFavourite={toggleFavourite}
-        elementID={index}/>
+        elementID={photoItem.id}/>
     </li>
   );
   
