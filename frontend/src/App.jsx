@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="App">
       <HomeRoute topicData={topics} photoData={photos} setActiveModal={setActiveModal}/>
-      {activeModal ? <PhotoDetailsModal/> : <></>}
+      {activeModal ? <PhotoDetailsModal setActiveModal={setActiveModal}/> : <></>}
     </div>
   );
 };
