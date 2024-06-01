@@ -4,7 +4,7 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({topicData, photoData}) => {  
+const HomeRoute = ({topicData, photoData, setActiveModal}) => {  
 
   const [globalFavourites, setGlobalFavourites] = useState([]); //default contains no favorites saved
 
@@ -27,7 +27,8 @@ const HomeRoute = ({topicData, photoData}) => {
         <PhotoList 
           photos={photoData} 
           globalFavourites={globalFavourites} 
-          toggleFavourite={toggleFavourite}/>
+          toggleFavourite={toggleFavourite}
+          setActiveModal={setActiveModal}/>
       </div>
     </div>
   );
