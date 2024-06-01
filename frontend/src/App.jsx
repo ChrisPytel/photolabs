@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+//Imported Styles
 import './App.scss';
-// import PhotoListItem from './components/PhotoListItem';
-// import TopicListItem from 'components/TopicListItem';
-// import PhotoList from './components/PhotoList';
-// import TopicList from 'components/TopicList';
-// import TopNavigation from 'components/TopNavigationBar';
-import HomeRoute from 'routes/HomeRoute';
+
+//Imported Datasets
 import topics from 'mocks/topics';
 import photos from 'mocks/photos';
 
+//Imported Components
+import HomeRoute from 'routes/HomeRoute';
+import PhotoDetailsModal from 'routes/PhotoDetailsModal';
+
 // Note: Rendering a single component to build components in isolation
 const App = () => {
+  const [activeModal, setActiveModal] = useState(false);
 
   return (
     <div className="App">
-      <HomeRoute topicData={topics} photoData={photos}/>
+      <HomeRoute topicData={topics} photoData={photos} setActiveModal={setActiveModal}/>
+      {activeModal ? <PhotoDetailsModal/> : <></>}
     </div>
   );
 };
