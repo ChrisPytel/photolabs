@@ -3,19 +3,22 @@ import React, { useState } from "react";
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = (props) => {
-  const listItem = props.photoListData;
+const PhotoListItem = ({photoListData, globalFavourites, toggleFavourite, elementID}) => {
+  console.log(`Our photoListData: `, photoListData);
 
-  return(    
-      <div className={`photo-list__item id-${listItem.id}`} key={listItem.id}>
-        <PhotoFavButton/>
-        <img className="photo-list__image" src={listItem.urls.full} alt={`Photo credit: ${listItem.username}`}/> 
+    return(    
+      <div className={`photo-list__item id-${photoListData.id}`} key={photoListData.id}>
+        <PhotoFavButton
+          globalFavourites={globalFavourites}
+          toggleFavourite={toggleFavourite}
+          elementID={elementID}/>
+        <img className="photo-list__image" src={photoListData.urls.full} alt={`Photo credit: ${photoListData.username}`}/> 
         <div className="photo-list__user-details">
-          <img className="photo-list__user-profile" src={listItem.user.profile} alt={`${listItem.username} Profile Image`}/>         
+          <img className="photo-list__user-profile" src={photoListData.user.profile} alt={`${photoListData.username} Profile Image`}/>         
           <div className="photo-list__user-info">
-              <span>{listItem.user.name}</span>
+              <span>{photoListData.user.name}</span>
               <div className="photo-list__user-location">
-                <span>{listItem.location.city}, {listItem.location.country}</span>
+                <span>{photoListData.location.city}, {photoListData.location.country}</span>
               </div>
             </div>
         </div>
