@@ -6,8 +6,7 @@ import '../styles/PhotoFavButton.scss';
 function PhotoFavButton({globalFavourites, toggleFavourite, elementID}) {  
   
   const handleFavoritePress = function() {
-   toggleFavourite(elementID);                                  //Toggles Global favorite  
-   console.log(`Status of favourite is:`, globalFavourites);
+   toggleFavourite(elementID);               //Toggles Global favorite  
   };
   
   return (

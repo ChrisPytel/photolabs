@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
@@ -8,6 +8,8 @@ const HomeRoute = ({topicData, photoData, setActiveModal}) => {
 
   const [globalFavourites, setGlobalFavourites] = useState([]); //default contains no favorites saved
 
+  useEffect(() => console.log(`Our globalFavourites: `, globalFavourites), [globalFavourites]); 
+  
   // start with a state holding an empty array
   // create function to update state in Homeroute.jsx
   // pass function and state down as props to photoList element
