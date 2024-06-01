@@ -24,9 +24,7 @@ const sampleDataForTopicList = [
 const TopicList = () => {
 
   const listItems = sampleDataForTopicList.map((listItem) => 
-  <li key={listItem.id}>
-    <TopicListItem listItem={listItem}/>
-  </li>
+    <TopicListItem listItem={listItem} key={listItem.id}/>
 );
 
   return (
