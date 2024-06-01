@@ -2,8 +2,10 @@ import React from "react";
 
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
+import photos from "mocks/photos";
 
-const sampleDataForPhotoList = [
+// Previous Dataset
+/* const sampleDataForPhotoList = [
   {
     id: "1",
     location: {
@@ -55,11 +57,11 @@ const sampleDataForPhotoList = [
       profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
     },
   },
-];
+]; */
 
 const PhotoList = () => {
   
-  const photoItems = sampleDataForPhotoList.map((photoItem, index) =>
+  const photoItems = photos.map((photoItem, index) =>
     <li key={index}>
     <PhotoListItem photoListData={photoItem}/>
     </li>
