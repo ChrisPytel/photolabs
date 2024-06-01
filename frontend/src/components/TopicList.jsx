@@ -2,7 +2,7 @@ import React from "react";
 
 import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
-import topics from "mocks/topics";
+// import topics from "mocks/topics";
 
 // Old Dataset
 /* const sampleDataForTopicList = [
@@ -23,9 +23,10 @@ import topics from "mocks/topics";
   },
 ]; */
 
-const TopicList = () => {
+const TopicList = (props) => {
+  // console.log(`Our TopicList props: `, props);
 
-  const listItems = topics.map((listItem) => 
+  const listItems = props.topics.map((listItem) => 
     <TopicListItem listItem={listItem} key={listItem.id}/>
 );
 
