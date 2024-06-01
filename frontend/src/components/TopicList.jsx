@@ -2,8 +2,10 @@ import React from "react";
 
 import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
+import topics from "mocks/topics";
 
-const sampleDataForTopicList = [
+// Old Dataset
+/* const sampleDataForTopicList = [
   {
     id: "1",
     slug: "topic-1",
@@ -19,11 +21,11 @@ const sampleDataForTopicList = [
     slug: "topic-3",
     title: "People",
   },
-];
+]; */
 
 const TopicList = () => {
 
-  const listItems = sampleDataForTopicList.map((listItem) => 
+  const listItems = topics.map((listItem) => 
     <TopicListItem listItem={listItem} key={listItem.id}/>
 );
 
