@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //Imported Styles
 import './App.scss';
@@ -13,12 +13,25 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const [activeModal, setActiveModal] = useState(false);
 
+  //States for modal and image to feature inside
+  const [activeModal, setActiveModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(false);
+
+  //Function for toggling and passing in details for iamge to modal
+  const toggleModal = function(photoDetails) { 
+    setActiveModal(!activeModal); //toggles modal status
+    setSelectedImage(photoDetails);       
+  };
+
+  useEffect(() => console.log(`activeModal is: `, activeModal), [activeModal]); 
+  useEffect(() => console.log(`Our selectedImage: `, selectedImage), [selectedImage]); 
+ 
   return (
     <div className="App">
-      <HomeRoute topicData={topics} photoData={photos} setActiveModal={setActiveModal}/>
-      {activeModal ? <PhotoDetailsModal setActiveModal={setActiveModal}/> : <></>}
+      <HomeRoute topicData={topics} photoData={photos} toggleModal={toggleModal}/>
+      {activeModal ? <PhotoDetailsModal selectedImage={selectedImage} toggleModal={toggleModal}/> :
+      <></>}
     </div>
   );
 };
