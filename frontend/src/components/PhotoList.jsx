@@ -3,7 +3,7 @@ import React from "react";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({photos, globalFavourites, toggleFavourite, setActiveModal}) => {
+const PhotoList = ({photos, globalFavourites, toggleFavourite, toggleModal}) => {
     
   //Refactored Map away from using index and now uses photoItem.ID as its key identifier
   const photoItems = photos.map((photoItem) =>
@@ -14,7 +14,7 @@ const PhotoList = ({photos, globalFavourites, toggleFavourite, setActiveModal}) 
         globalFavourites={globalFavourites}
         toggleFavourite={toggleFavourite}
         elementID={photoItem.id}
-        setActiveModal={setActiveModal}/>
+        toggleModal={toggleModal}/>
     </li>
   );
   
