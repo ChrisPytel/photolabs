@@ -7,6 +7,7 @@ import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = ({selectedImage, globalFavourites, toggleFavourite, toggleModal}) => {
   console.log(`Current modal is recieving: `, selectedImage);
+  console.log(`Our selectedImage.similarPhotos is: `, selectedImage.similar_photos);
 
   return (
     <div className="photo-details-modal">
@@ -34,8 +35,13 @@ const PhotoDetailsModal = ({selectedImage, globalFavourites, toggleFavourite, to
         </div>
       </div>  
 
-      <header className="photo-details-modal__header"> Similar Photos</header>
+      <header className="photo-details-modal__header">Similar Photos</header>
       
+      <PhotoList 
+        photos={selectedImage.similar_photos} 
+        globalFavourites={globalFavourites} 
+        toggleFavourite={toggleFavourite}/> 
+
     </div>
   )
 };
