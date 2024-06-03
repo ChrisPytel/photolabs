@@ -11,27 +11,38 @@ import photos from 'mocks/photos';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
-// Note: Rendering a single component to build components in isolation
 const App = () => {
 
-  //States for modal and image to feature inside
+  //States
   const [activeModal, setActiveModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(false);
+  const [globalFavourites, setGlobalFavourites] = useState([]);
+  
+  const toggleFavourite = (photoID) => {
+    globalFavourites.includes(photoID)?                                              // checks if photoID exists that was clicked exists in state
+    setGlobalFavourites(globalFavourites.filter((element) => element !== photoID)):  // If it exists, it filters it out of the array and removes it
+    setGlobalFavourites([...globalFavourites, photoID])                              // If it doesnt exist, spreads current favorites and adds it at the end 
+  };
 
   //Function for toggling and passing in details for iamge to modal
   const toggleModal = function(photoDetails) { 
     setActiveModal(!activeModal); //toggles modal status
     setSelectedImage(photoDetails);       
   };
-
+    
+  useEffect(() => console.log(`Our globalFavourites: `, globalFavourites), [globalFavourites]); 
   useEffect(() => console.log(`activeModal is: `, activeModal), [activeModal]); 
   useEffect(() => console.log(`Our selectedImage: `, selectedImage), [selectedImage]); 
  
   return (
     <div className="App">
-      <HomeRoute topicData={topics} photoData={photos} toggleModal={toggleModal}/>
-      {activeModal ? <PhotoDetailsModal selectedImage={selectedImage} toggleModal={toggleModal}/> :
-      <></>}
+      <HomeRoute 
+        topicData={topics} 
+        photoData={photos} 
+        globalFavourites={globalFavourites} 
+        toggleFavourite={toggleFavourite}
+        toggleModal={toggleModal}/>
+      {activeModal ? <PhotoDetailsModal selectedImage={selectedImage} toggleModal={toggleModal}/> : <></>}
     </div>
   );
 };
