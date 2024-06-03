@@ -30,9 +30,9 @@ const App = () => {
     setSelectedImage(photoDetails);       
   };
     
-  useEffect(() => console.log(`Our globalFavourites: `, globalFavourites), [globalFavourites]); 
-  useEffect(() => console.log(`activeModal is: `, activeModal), [activeModal]); 
-  useEffect(() => console.log(`Our selectedImage: `, selectedImage), [selectedImage]); 
+  useEffect(() => console.log(`UseEffect says globalFavourites is: `, globalFavourites), [globalFavourites]); 
+  useEffect(() => console.log(`UseEffect says activeModal is: `, activeModal), [activeModal]); 
+  useEffect(() => console.log(`UseEffect says selectedImage is: `, selectedImage), [selectedImage]); 
  
   return (
     <div className="App">
@@ -42,7 +42,12 @@ const App = () => {
         globalFavourites={globalFavourites} 
         toggleFavourite={toggleFavourite}
         toggleModal={toggleModal}/>
-      {activeModal ? <PhotoDetailsModal selectedImage={selectedImage} toggleModal={toggleModal}/> : <></>}
+      {activeModal ?
+      <PhotoDetailsModal 
+        selectedImage={selectedImage} 
+        globalFavourites={globalFavourites} 
+        toggleFavourite={toggleFavourite}
+        toggleModal={toggleModal}/>   :   <></>}
     </div>
   );
 };
