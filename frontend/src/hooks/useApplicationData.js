@@ -1,15 +1,20 @@
-import { useReducer } from 'react';
+import { act } from 'react';
+import { useReducer, useEffect } from 'react';
 
 const INITIAL_STATE = {
   globalFavourites: [],
   selectedImage: false,
-  activeModal: false
+  activeModal: false,
+  photoData: [],
+  topicData: []
 };
 
 const ACTIONS = {
   TOGGLE_FAVOURITE: 'TOGGLE_FAVOURITE',
   SELECT_IMAGE: 'SELECT_IMAGE',
-  CLOSE_MODAL: 'CLOSE_MODAL'
+  CLOSE_MODAL: 'CLOSE_MODAL',
+  SET_PHOTO_DATA: 'SET_PHOTO_STATE',
+  SET_TOPIC_DATA: 'SET_TOPIC_STATE'
 };
 
 const reducer = (state, action) => {
@@ -32,14 +37,22 @@ const reducer = (state, action) => {
     case ACTIONS.CLOSE_MODAL:
       return {...state, activeModal: false, selectedImage: null};
 
+    case ACTIONS.SET_PHOTO_DATA:
+      // console.log(`our SET_PHOTO_DATA is`, action.payload);
+      return { ...state, photoData: action.payload };
+
+    case ACTIONS.SET_TOPIC_DATA:
+      // console.log(`our SET_PHOTO_DATA is:`, action.payload);
+        return { ...state, topicData: action.payload };   
+
     default:
       throw new Error(`Invalid action type: ${action.type}`);
   }
 };
 
 function useApplicationData() {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const toggleFavourite = function(photoID) {
     dispatch({type: ACTIONS.TOGGLE_FAVOURITE, payload: photoID})       
@@ -53,7 +66,23 @@ function useApplicationData() {
     }   
   };
 
+  const photosURL = `http://localhost:8001/api/photos`;  //move away from hardcoded value later        
+  useEffect(() => {
+    fetch(photosURL)
+    .then(res => res.json())
+    .then(photosFromDB => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photosFromDB }));
+  }, []);
+
+  const topicsURL = `http://localhost:8001/api/topics`;  //move away from hardcoded value later        
+  useEffect(() => {
+    fetch(topicsURL)
+    .then(res => res.json())
+    .then(topicsFromDB => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicsFromDB }));
+  }, []);    
+
   return {
+    photos: state.photoData,
+    topics: state.topicData,
     activeModal: state.activeModal,
     selectedImage: state.selectedImage,
     globalFavourites: state.globalFavourites,
