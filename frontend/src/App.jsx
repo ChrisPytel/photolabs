@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 //Imported Styles
 import './App.scss';
-
-//Imported Datasets, no longer needed as data is fetched from our pg database
-// import topics from 'mocks/topics';
-// import photos from 'mocks/photos';
 
 //Imported Components
 import HomeRoute from 'routes/HomeRoute';
@@ -24,12 +20,9 @@ const App = () => {
     globalFavourites, 
     toggleFavourite, 
     toggleModal,
-    fetchPhotosByTopic} = useApplicationData();
+    fetchPhotosByTopic
+  } = useApplicationData();
     
-  // useEffect(() => console.log(`UseEffect says globalFavourites is: `, globalFavourites), [globalFavourites]); 
-  // useEffect(() => console.log(`UseEffect says activeModal is: `, activeModal), [activeModal]); 
-  // useEffect(() => console.log(`UseEffect says selectedImage is: `, selectedImage), [selectedImage]); 
- 
   return (
     <div className="App">
       <HomeRoute 

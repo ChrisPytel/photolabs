@@ -4,14 +4,13 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({photoListData, globalFavourites, toggleFavourite, elementID, toggleModal}) => {
-  // console.log(`Our photoListData: `, photoListData);
 
-  const handleImageClick = function() {
-    console.log(`Selected image:`, elementID);
+  //When our photos are clicked, passes our object for this particular image to our modal component to render
+  const handlePhotoClick = function() {
     toggleModal(photoListData);
   };
 
-    return(    
+    return(
       <div className="photo-list__item" key={photoListData.id}>
         <PhotoFavButton
           globalFavourites={globalFavourites}
@@ -20,7 +19,7 @@ const PhotoListItem = ({photoListData, globalFavourites, toggleFavourite, elemen
         <img className="photo-list__image" 
           src={photoListData.urls.full} 
           alt={`Photo credit: ${photoListData.username}`}
-          onClick={handleImageClick}/> 
+          onClick={handlePhotoClick}/> 
         <div className="photo-list__user-details">
           <img className="photo-list__user-profile" src={photoListData.user.profile} alt={`${photoListData.username} Profile Image`}/>         
           <div className="photo-list__user-info">
@@ -30,7 +29,7 @@ const PhotoListItem = ({photoListData, globalFavourites, toggleFavourite, elemen
               </div>
             </div>
         </div>
-      </div>    
+      </div>
   );
 };
 

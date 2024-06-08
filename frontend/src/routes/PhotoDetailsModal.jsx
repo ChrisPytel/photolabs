@@ -6,15 +6,12 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = ({selectedImage, globalFavourites, toggleFavourite, toggleModal}) => {
-  console.log(`Current modal is recieving: `, selectedImage);
-  console.log(`Our selectedImage.similarPhotos is: `, selectedImage.similar_photos);
 
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button" onClick={()=> toggleModal()}>
         <img src={closeSymbol} alt="close symbol" />
       </button>
-
 
       <div className="photo-details-modal__images" key={selectedImage.id}>
         <PhotoFavButton
@@ -25,7 +22,9 @@ const PhotoDetailsModal = ({selectedImage, globalFavourites, toggleFavourite, to
           src={selectedImage.urls.full} 
           alt={`Photo credit: ${selectedImage.username}`}/> 
         <div className="photo-details-modal__photographer-details">
-          <img className="photo-details-modal__photographer-profile" src={selectedImage.user.profile} alt={`${selectedImage.username} Profile Image`}/>         
+          <img className="photo-details-modal__photographer-profile" 
+            src={selectedImage.user.profile} 
+            alt={`${selectedImage.username} Profile Image`}/>
           <div className="photo-details-modal__photographer-info">
               <span>{selectedImage.user.name}</span>
               <div className="photo-details-modal__photographer-location">
