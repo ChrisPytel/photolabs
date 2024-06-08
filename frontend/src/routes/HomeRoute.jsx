@@ -4,13 +4,14 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({topicData, photoData, toggleModal, globalFavourites, toggleFavourite}) => {  
+const HomeRoute = ({topicData, photoData, toggleModal, globalFavourites, toggleFavourite, fetchPhotosByTopic}) => {  
 
   return (
     <div className="home-route">
       <TopNavigation 
         topics={topicData} 
-        globalFavourites={globalFavourites}/>
+        globalFavourites={globalFavourites}
+        fetchPhotosByTopic={fetchPhotosByTopic}/>
       <div className="photo-list">        
         <PhotoList 
           photos={photoData} 

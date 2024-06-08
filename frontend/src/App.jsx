@@ -23,7 +23,8 @@ const App = () => {
     selectedImage, 
     globalFavourites, 
     toggleFavourite, 
-    toggleModal} = useApplicationData();
+    toggleModal,
+    fetchPhotosByTopic} = useApplicationData();
     
   // useEffect(() => console.log(`UseEffect says globalFavourites is: `, globalFavourites), [globalFavourites]); 
   // useEffect(() => console.log(`UseEffect says activeModal is: `, activeModal), [activeModal]); 
@@ -36,7 +37,8 @@ const App = () => {
         photoData={photos} 
         globalFavourites={globalFavourites} 
         toggleFavourite={toggleFavourite}
-        toggleModal={toggleModal}/>
+        toggleModal={toggleModal}
+        fetchPhotosByTopic={fetchPhotosByTopic}/>
       {activeModal ?
       <PhotoDetailsModal 
         selectedImage={selectedImage} 
