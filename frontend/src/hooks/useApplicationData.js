@@ -1,10 +1,10 @@
-import { act } from 'react';
 import { useReducer, useEffect } from 'react';
 
 const INITIAL_STATE = {
   globalFavourites: [],
   selectedImage: false,
   activeModal: false,
+  selectedTopic: false,
   photoData: [],
   topicData: []
 };
@@ -14,7 +14,8 @@ const ACTIONS = {
   SELECT_IMAGE: 'SELECT_IMAGE',
   CLOSE_MODAL: 'CLOSE_MODAL',
   SET_PHOTO_DATA: 'SET_PHOTO_STATE',
-  SET_TOPIC_DATA: 'SET_TOPIC_STATE'
+  SET_TOPIC_DATA: 'SET_TOPIC_STATE',
+  SELECT_TOPIC: 'SELECT_TOPIC'
 };
 
 const reducer = (state, action) => {
@@ -23,13 +24,13 @@ const reducer = (state, action) => {
     case ACTIONS.TOGGLE_FAVOURITE:
       const photoID = action.payload;
 
-      // checks if photoID exists that was clicked exists in state
-      if (state.globalFavourites.includes(photoID)) {   
-         // If it exists, it filters it out of the array and removes it                    
-        return {...state, globalFavourites: state.globalFavourites.filter(element => element !== photoID)};
-      }
-      // If it doesnt exist, spreads current favorites and adds it at the end 
-      return {...state, globalFavourites: [...state.globalFavourites, photoID]};
+    // checks if photoID exists that was clicked exists in state
+    if (state.globalFavourites.includes(photoID)) {   
+        // If it exists, it filters it out of the array and removes it                    
+      return {...state, globalFavourites: state.globalFavourites.filter(element => element !== photoID)};
+    }
+    // If it doesnt exist, spreads current favorites and adds it at the end 
+    return {...state, globalFavourites: [...state.globalFavourites, photoID]};
 
     case ACTIONS.SELECT_IMAGE:
       return {...state, activeModal: true, selectedImage: action.payload};
@@ -39,11 +40,14 @@ const reducer = (state, action) => {
 
     case ACTIONS.SET_PHOTO_DATA:
       // console.log(`our SET_PHOTO_DATA is`, action.payload);
-      return { ...state, photoData: action.payload };
+      return {...state, photoData: action.payload};
 
     case ACTIONS.SET_TOPIC_DATA:
       // console.log(`our SET_PHOTO_DATA is:`, action.payload);
-        return { ...state, topicData: action.payload };   
+        return {...state, topicData: action.payload};   
+
+    case ACTIONS.SELECT_TOPIC:
+      return {...state, selectedTopic: action.payload};
 
     default:
       throw new Error(`Invalid action type: ${action.type}`);
@@ -66,19 +70,31 @@ function useApplicationData() {
     }   
   };
 
+  const fetchPhotosByTopic = function(topicID) {
+    console.log(`Our topicID is: `, topicID);
+    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: topicID });   
+  };
+
   const photosURL = `http://localhost:8001/api/photos`;  //move away from hardcoded value later        
   useEffect(() => {
     fetch(photosURL)
     .then(res => res.json())
-    .then(photosFromDB => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photosFromDB }));
+    .then(photosFromDB => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photosFromDB}));
   }, []);
 
-  const topicsURL = `http://localhost:8001/api/topics`;  //move away from hardcoded value later        
+  const topicsURL = `http://localhost:8001/api/topics`
   useEffect(() => {
-    fetch(topicsURL)
-    .then(res => res.json())
-    .then(topicsFromDB => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicsFromDB }));
-  }, []);    
+    if (state.selectedTopic) {
+      fetch(`${topicsURL}/photos/${state.selectedTopic}`)
+      .then(res => res.json())
+      .then(photosByTopic => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photosByTopic}));
+    }
+    else{
+      fetch(topicsURL)
+      .then(res => res.json())
+      .then(topicsFromDB => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: topicsFromDB}));
+    }
+  }, [state.selectedTopic]);
 
   return {
     photos: state.photoData,
@@ -87,7 +103,8 @@ function useApplicationData() {
     selectedImage: state.selectedImage,
     globalFavourites: state.globalFavourites,
     toggleFavourite,
-    toggleModal
+    toggleModal,
+    fetchPhotosByTopic
   };
 }
 
