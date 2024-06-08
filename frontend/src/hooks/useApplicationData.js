@@ -81,20 +81,23 @@ function useApplicationData() {
   useEffect(() => {
     fetch(photosURL)
     .then(res => res.json())
-    .then(photosFromDB => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photosFromDB}));
+    .then(photosFromDB => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photosFromDB}))
+    .catch(err => console.error(`Experienced an error attempting to fetch from ${photosURL} \nDetails:\n`, err));
   }, []);
 
   // UseEffect for performing our Database API call for fetching topics
   useEffect(() => {
     if (state.selectedTopic) {
-      fetch(`${topicsURL}/photos/${state.selectedTopic}`)
+      fetch(`${topicsURL}/photos/${state.selectedTopic}`)   
       .then(res => res.json())
-      .then(photosByTopic => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photosByTopic}));
+      .then(photosByTopic => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photosByTopic}))
+      .catch(err => console.error(`Experienced an error attempting to fetch from ${topicsURL}/photos/${state.selectedTopic} \nDetails:\n`, err));
     }
     else{
       fetch(topicsURL)
       .then(res => res.json())
-      .then(topicsFromDB => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: topicsFromDB}));
+      .then(topicsFromDB => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: topicsFromDB}))
+      .catch(err => console.error(`Experienced an error attempting to fetch from ${topicsURL} \nDetails:\n`, err));
     }
   }, [state.selectedTopic]);
 
