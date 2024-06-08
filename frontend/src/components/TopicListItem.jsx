@@ -9,12 +9,17 @@ import "../styles/TopicListItem.scss";
 //   label: "Nature",
 // };
 
-const TopicListItem = (props) => {
+const TopicListItem = ({topic, fetchPhotosByTopic}) => {
   // console.log(`Our props in TopicListItem: `, props);
+
+  const handleTopicClick = function(topicToFetch) {    
+    console.log(`Our topicToFetch is: `, topicToFetch);
+    fetchPhotosByTopic(topicToFetch);
+  };
 
   return (
     <div className="topic-list__item">
-        <span>{props.listItem.title}</span>
+        <span onClick={()=>handleTopicClick(topic.id)}>{topic.title}</span>
     </div>
   );
 };

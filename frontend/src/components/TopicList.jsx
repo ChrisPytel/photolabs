@@ -23,11 +23,11 @@ import TopicListItem from "./TopicListItem";
   },
 ]; */
 
-const TopicList = (props) => {
+const TopicList = ({topics, fetchPhotosByTopic}) => {
   // console.log(`Our TopicList props: `, props);
 
-  const listItems = props.topics.map((listItem) => 
-    <TopicListItem listItem={listItem} key={listItem.id}/>
+  const listItems = topics.map((topic) => 
+    <TopicListItem topic={topic} fetchPhotosByTopic={fetchPhotosByTopic} key={topic.id}/>
 );
 
   return (
